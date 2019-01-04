@@ -40,7 +40,8 @@ My specific use case which lead to this lib was an event consumer that was getti
 
 ### Example Parser
 
-```
+```ruby
+
 require "json_deep_parse"
 
 class SpecialParser
@@ -50,11 +51,12 @@ class SpecialParser
     JSON.deep_parse(json_payload)
   end
 end
+
 ```
 
 ### Example Usage and Results
 
-```
+```ruby
 
 super_nested_json = "{\"topKey\":\"{\\\"nestedKey\\\":[\\\"{\\\\\\\"deeplyNestedKey\\\\\\\":{\\\\\\\"parseable\\\\\\\":true}}\\\",\\\"{\\\\\\\"deeplyNestedKey\\\\\\\":{\\\\\\\"parseable\\\\\\\":true}}\\\",\\\"{\\\\\\\"deeplyNestedKey\\\\\\\":{\\\\\\\"parseable\\\\\\\":true}}\\\"]}\"}"
 
