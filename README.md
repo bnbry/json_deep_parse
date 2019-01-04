@@ -12,7 +12,7 @@ Other times, you receive a big blob of JSON that was other blobs of JSON within 
 
 You probably don't need the dependency honestly, but this is available as a gem if you want it that way, scoot down to the next section.
 
-Make a file in your app or lib and call it something cool like JSONDeepParse and then copy and paste the file from this lib.
+Make a file in your app or lib and call it something cool like JSONDeepParse and then copy and paste the `lib/json_deep_parse.rb` from this repo.
 
 ### Gem
 
@@ -32,7 +32,69 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+JSONDeepParse is a module with refinements. In order to use it you have to utilize the `using` keyword.
+
+### Usecase
+
+My specific use case which lead to this lib was an event consumer that was getting a deeply escaped JSON payload from a series of data transformations that I did not own and couldn't improve(to not nest escaped JSON).
+
+### Example Parser
+
+```
+require "json_deep_parse"
+
+class SpecialParser
+  using ::JSONDeepParse
+  
+  def self.parse(json_payload)
+    JSON.deep_parse(json_payload)
+  end
+end
+```
+
+### Example Usage and Results
+
+```
+
+super_nested_json = "{\"topKey\":\"{\\\"nestedKey\\\":[\\\"{\\\\\\\"deeplyNestedKey\\\\\\\":{\\\\\\\"parseable\\\\\\\":true}}\\\",\\\"{\\\\\\\"deeplyNestedKey\\\\\\\":{\\\\\\\"parseable\\\\\\\":true}}\\\",\\\"{\\\\\\\"deeplyNestedKey\\\\\\\":{\\\\\\\"parseable\\\\\\\":true}}\\\"]}\"}"
+
+# With JSON.parse
+JSON.parse(super_nested_json)
+=>
+{
+  "topKey"=>"{\"nestedKey\":[\"{\\\"deeplyNestedKey\\\":{\\\"parseable\\\":true}}\",\"{\\\"deeplyNestedKey\\\":{\\\"parseable\\\":true}}\",\"{\\\"deeplyNestedKey\\\":{\\\"parseable\\\":true}}\"]}"
+}
+
+# With JSON.deep_parse
+SpecialParser.parse(super_nested_json)
+=>
+{
+  "topKey" => {
+    "nestedKey" => [
+      {
+        "deeplyNestedKey" => {
+          "parseable" => true
+        }
+      },
+      {
+        "deeplyNestedKey" => {
+          "parseable" => true
+        }
+      },
+      {
+        "deeplyNestedKey" => {
+          "parseable" => true
+        }
+      }
+    ]
+  }
+}
+
+```
+
+## How it Works
+
+JSONDeepParse refines the Ruby objects that are potentially in valid JSON and attempts to 'over' parse Strings, which does nothing with ordinary JSON but deeply escaped nested JSON will be deeply parsed.
 
 ## Development
 
