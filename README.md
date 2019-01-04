@@ -1,10 +1,20 @@
-# JsonDeepParse
+# JSON Deep Parse
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/json_deep_parse`. To experiment with that code, run `bin/console` for an interactive prompt.
+Deeply parse heavily escaped and nested JSON
 
-TODO: Delete this and the text above, and describe your gem
+Sometimes you have a big blob of JSON and you parse it using `JSON.parse(blob)` and everything is great.
+
+Other times, you receive a big blob of JSON that was other blobs of JSON within other blobs of JSON and you have no control over the fact that the JSON was deeply escaped but you want it deeply parsed. This lib is a non performant way to do that.
 
 ## Installation
+
+### Copy Paste
+
+You probably don't need the dependency honestly, but this is available as a gem if you want it that way, scoot down to the next section.
+
+Make a file in your app or lib and call it something cool like JSONDeepParse and then copy and paste the file from this lib.
+
+### Gem
 
 Add this line to your application's Gemfile:
 
