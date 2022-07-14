@@ -6,11 +6,11 @@ require "json_deep_parse/version"
 Gem::Specification.new do |spec|
   spec.name          = "json_deep_parse"
   spec.version       = JsonDeepParse::VERSION
-  spec.authors       = ["spaceghoul"]
+  spec.authors       = ["bnbry"]
   spec.email         = ["mbanbury@gmail.com"]
 
   spec.summary       = "Deeply parse heavily escaped and nested JSON"
-  spec.homepage      = "https://github.com/spaceghoul/json_deep_parse"
+  spec.homepage      = "https://github.com/bnbry/json_deep_parse"
   spec.license       = "MIT"
 
   spec.files         = Dir.chdir(File.expand_path('..', __FILE__)) do
